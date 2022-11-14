@@ -17,8 +17,9 @@ import java.util.Arrays;
                 roles.add(new BenutzerGrantedRole(benutzer.getRole()));
                 System.out.println("MemberToUserDetailsMapper.toUserDetails(): roles: "+ Arrays.toString(roles.toArray()));
 
-                user = new User(benutzer.getName()+""+ benutzer.getLastname(), benutzer.getPassword(), true, true, true, true, roles);
+                user = new Benutzer(benutzer.getName(), benutzer.getLastname(), benutzer.getPassword(), benutzer.getEmail(), benutzer.getPhoneNumber(), roles);
             }
             return user;
         }
     }
+}

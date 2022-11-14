@@ -13,7 +13,7 @@ public class BenutzerService implements UserDetailsService {
     @Autowired
     private BenutzerRepository repository;
 
-    public Iterable<Benutzer> getAll(){
+    public Iterable<Bentzer> getAll(){
 
         return repository.findAll();
     }
@@ -57,7 +57,6 @@ public class BenutzerService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         Benutzer benutzer = getByName(s);
-        return BenutzerToDetailsMapper.toUserDetails(benutzer);
+        return Benutzer.toUserDetails(member);
     }
-
 }

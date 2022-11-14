@@ -35,7 +35,7 @@ public class WebSecurityConfig {
                 User.withDefaultPasswordEncoder()
                         .username("user")
                         .password("password")
-                        .roles("admin")
+                        .roles("USER")
                         .build();
 
         return new InMemoryUserDetailsManager(user);
