@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class Benutzer {
     @Id
     @GeneratedValue(generator = "generatorMember", strategy = GenerationType.AUTO)
     @SequenceGenerator(name = "generatorMember", initialValue=20)
@@ -20,7 +20,7 @@ public class User {
 
     private String role;
 
-    public User(String name, String lastname, String password, String email, String phoneNumber, String role) {
+    public Benutzer(String name, String lastname, String password, String email, String phoneNumber, String role) {
         this.name = name;
         this.lastname = lastname;
         this.password = password;
@@ -29,7 +29,7 @@ public class User {
         this.role = role;
     }
 
-    public User() {
+    public Benutzer() {
 
     }
 
