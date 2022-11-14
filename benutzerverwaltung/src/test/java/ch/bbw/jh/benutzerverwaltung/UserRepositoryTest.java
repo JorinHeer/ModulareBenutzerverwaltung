@@ -15,35 +15,35 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class BenutzerRepositoryTest {
+public class UserRepositoryTest {
     @Autowired
-    private BenutzerRepository benutzerRepository;
+    private UserRepository userRepository;
 
     @Test
     public void testFindingSingleUser() {
-        assertTrue(benutzerRepository.findById(20L).isPresent());
+        assertTrue(userRepository.findById(20L).isPresent());
     }
 
     @Test
     public void testFindingAllUsers() {
-        assertTrue(benutzerRepository.findAll() instanceof List);
+        assertTrue(userRepository.findAll() instanceof List);
     }
 
     @Test
     public void testSavingUser() {
-        assertEquals(benutzerRepository.findById(20L).get().getName(), "Tomas");
+        assertEquals(userRepository.findById(20L).get().getName(), "Tomas");
 
     }
 
     @Before
     public void setup() {
-        benutzerRepository.save(new Benutzer("Tomas",
+        userRepository.save(new User("Tomas",
                 "Test",
                 "1234",
                 "tomas.test@test.com",
                 "123 456 78 90",
                 "Administrator"));
-        benutzerRepository.save(new Benutzer("Ane",
+        userRepository.save(new User("Ane",
                 "Amberg",
                 "1234",
                 "ane.amberg@test.com",
