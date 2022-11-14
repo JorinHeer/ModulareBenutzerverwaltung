@@ -1,6 +1,8 @@
 package ch.bbw.jh.benutzerverwaltung;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,5 +52,9 @@ public class BenutzerService {
         }
         System.out.println("MemberService:getByUserName(), username does not exist in repository: " + username);
         return null;
+    }
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        Benutzer benutzer = getByName(s);
+        return BenutzerToDetailsMapper.toUserDetails(benutzer);
     }
 }
