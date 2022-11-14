@@ -12,7 +12,7 @@
     </div>
   </div>
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-    <a class="navbar-brand" th:href="@{/hello}">Home</a>
+    <a class="navbar-brand" th:href="@{/index}">Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -33,22 +33,6 @@
     </div>
   </nav>
 </div>
-  <h1>Login Page</h1>
-  <div th:if="${param.error}">
-    <p>Invalid username or password.</p>
-  </div>
-  <div th:if="${param.logout}" style="align-content: flex-start">
-    <p>You have been logged out.</p>
-  </div>
-  <div>
-    <form th:action="@{/login}" method="post" style="border: 3px solid #f1f1f1; width: 50%">
-      <div style="padding: 25px; background-color: lightblue">
-        <div><label> User Name : <input type="text" name="username"/> </label></div>
-        <div><label> Password: <input type="password" name="password"/> </label></div>
-        <div><input type="submit" value="Sign In"/></div>
-      </div>
-      </p>
-    </form>
-  </div>
+<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
 </body>
 </html>
