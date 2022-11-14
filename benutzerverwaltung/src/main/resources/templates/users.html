@@ -19,7 +19,7 @@
                     <a class="nav-link" th:href="@{/edit}">Edit Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="navbar-brand" th:href="@{/users}">Users</a>
+                    <a class="navbar-brand" th:href="@{/get-users}">Users</a>
                 </li>
                 <li class="nav-item">
                     <form th:action="@{/logout}" method="post">
@@ -44,13 +44,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                <tr th:each="user : ${users}">
-                    <td style="outline-style: auto" th:text="${user.name}"></td>
-                    <td style="outline-style: auto" th:text="${user.name}"></td>
-                    <td style="outline-style: auto" th:text="${user.name}"></td>
-                    <td style="outline-style: auto" th:text="${user.name}"></td>
-                    <td><a class="btn btn-success" th:href="@{/edit-user?id={id}(id=${member.id})}">Edit</a></td>
-                    <td><a class="btn btn-warning" th:href="@{/delete-user?id={id}(id=${member.id})}">Delete</a></td>
+                <tr th:each="benutzer : ${users}">
+                    <td style="outline-style: auto" th:text="${benutzer.name}"></td>
+                    <td style="outline-style: auto" th:text="${benutzer.name}"></td>
+                    <td style="outline-style: auto" th:text="${benutzer.name}"></td>
+                    <td style="outline-style: auto" th:text="${benutzer.name}"></td>
+                    <td><a class="btn btn-success" th:href="@{/edit-benutzer?id={id}(id=${member.id})}">Edit</a></td>
+                    <td><a class="btn btn-warning" th:href="@{/delete-benutzer?id={id}(id=${member.id})}">Delete</a></td>
                 </tr>
                 </tbody>
         </table>
