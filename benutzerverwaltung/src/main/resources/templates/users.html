@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 </head>
 <body>
-<div id="includedHeader">
+    <div id="includedHeader">
     <div class="row">
         <div class="col-sm-10 jumbotron text-left pr_bg_green" style="margin-bottom:0">
             <h1><b><i>Benutzerverwaltung</i></b></h1>
@@ -30,5 +30,31 @@
         </div>
     </nav>
 </div>
+    <div>
+        <form>
+            <table style="outline-style: auto">
+                <thead style="outline-style: auto">
+                    <tr>
+                        <th style="outline-style: auto; width: 100px ">Vorname</th>
+                        <th style="outline-style: auto; width: 100px ">Nachname</th>
+                        <th style="outline-style: auto; width: 100px ">E-Mail</th>
+                        <th style="outline-style: auto; width: 100px ">Telefon</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user : ${users}">
+                    <td style="outline-style: auto" th:text="${user.name}"></td>
+                    <td style="outline-style: auto" th:text="${user.name}"></td>
+                    <td style="outline-style: auto" th:text="${user.name}"></td>
+                    <td style="outline-style: auto" th:text="${user.name}"></td>
+                    <td><a class="btn btn-success" th:href="@{/edit-user?id={id}(id=${member.id})}">Edit</a></td>
+                    <td><a class="btn btn-warning" th:href="@{/delete-user?id={id}(id=${member.id})}">Delete</a></td>
+                </tr>
+                </tbody>
+        </table>
+        </form>
+    </div>
 </body>
 </html>
