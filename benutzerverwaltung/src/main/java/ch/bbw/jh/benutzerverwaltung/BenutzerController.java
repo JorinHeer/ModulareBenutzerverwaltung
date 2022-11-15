@@ -39,6 +39,7 @@ public class BenutzerController {
         value.setPassword(benutzer.getPassword());
         value.setPhoneNumber(benutzer.getPhoneNumber());
         value.setEmail(benutzer.getEmail());
+        value.setBenutzername(benutzer.getName().trim().toLowerCase()+"."+benutzer.getLastname().trim().toLowerCase());
         System.out.println("editUser post: update member" + value);
         benutzerService.update(benutzer.getId(), value);
         return "redirect:/get-users";
@@ -49,10 +50,5 @@ public class BenutzerController {
         System.out.println("deleteUser: " + id);
         benutzerService.deleteById(id);
         return "redirect:/get-users";
-    }
-    @GetMapping("/register-user")
-    public String registerUser(Model model){
-        model.addAttribute("registerUser",new RegisterUser());
-        return "register";
     }
 }

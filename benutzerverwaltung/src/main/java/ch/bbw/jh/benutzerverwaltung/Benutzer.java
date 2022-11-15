@@ -18,6 +18,7 @@ public class Benutzer {
     private String email;
     private String phoneNumber;
 
+    private String benutzername;
     private String role;
 
     public Benutzer(String name, String lastname, String password, String email, String phoneNumber, String role) {
@@ -26,13 +27,20 @@ public class Benutzer {
         this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        benutzername= name.trim().toLowerCase()+"."+lastname.trim().toLowerCase();
         this.role = role;
     }
 
     public Benutzer() {
 
     }
+    public String getBenutzername() {
+        return benutzername;
+    }
 
+    public void setBenutzername(String benutzername) {
+        this.benutzername = benutzername.toLowerCase();
+    }
     public long getId() {
         return id;
     }

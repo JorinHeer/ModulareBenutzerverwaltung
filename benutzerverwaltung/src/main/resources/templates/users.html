@@ -39,6 +39,9 @@
                         <th style="outline-style: auto; width: 100px ">Nachname</th>
                         <th style="outline-style: auto; width: 100px ">E-Mail</th>
                         <th style="outline-style: auto; width: 100px ">Telefon</th>
+                        <th style="outline-style: auto; width: 100px ">Benutzername</th>
+                        <th style="outline-style: auto; width: 100px ">id</th>
+                        <th></th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -49,6 +52,7 @@
                     <td style="outline-style: auto" th:text="${user.lastname}"></td>
                     <td style="outline-style: auto" th:text="${user.email}"></td>
                     <td style="outline-style: auto" th:text="${user.phoneNumber}"></td>
+                    <td style="outline-style: auto" th:text="${user.benutzername}"></td>
                     <td style="outline-style: auto" th:text="${user.id}"></td>
                     <td><a class="btn btn-success" th:href="@{/edit-user?id={id}(id=${user.id})}">Edit</a></td>
                     <td><a class="btn btn-warning" th:href="@{/delete-user?id={id}(id=${user.id})}">Delete</a></td>
