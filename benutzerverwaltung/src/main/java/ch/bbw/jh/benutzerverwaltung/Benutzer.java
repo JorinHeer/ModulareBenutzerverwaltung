@@ -1,6 +1,8 @@
 package ch.bbw.jh.benutzerverwaltung;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
@@ -9,8 +11,12 @@ public class Benutzer {
     @GeneratedValue(generator = "generatorMember", strategy = GenerationType.AUTO)
     @SequenceGenerator(name = "generatorMember", initialValue=20)
     private long id;
-    private String name;
 
+    @NotEmpty(message = "prename may not be empty" )
+    @Size(min=2, max=24, message="Die Länge des Vornamens muss 2 bis 25 Zeichen sein.")
+    private String name;
+    @NotEmpty (message = "lastname may not be empty" )
+    @Size(min=2, max=24, message="Die Länge des Nachnamens 2 bis 25 Zeichen sein.")
     private String lastname;
 
 

@@ -42,11 +42,11 @@ public class BenutzerService {
         return null;
     }
 
-    public Benutzer getByName(String username) {
+    public Benutzer getByUserName(String username) {
         Iterable<Benutzer> useritr = repository.findAll();
 
         for(Benutzer benutzer : useritr){
-            if (benutzer.getName().equals(username)) {
+            if (benutzer.getBenutzername().equals(username)) {
                 return benutzer;
             }
         }
@@ -54,7 +54,7 @@ public class BenutzerService {
         return null;
     }
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        Benutzer benutzer = getByName(s);
+        Benutzer benutzer = getByUserName(s);
         return BenutzerToDetailsMapper.toUserDetails(benutzer);
     }
 }
