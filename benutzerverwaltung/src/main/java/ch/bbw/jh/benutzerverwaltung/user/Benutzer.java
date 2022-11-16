@@ -1,11 +1,11 @@
-package ch.bbw.jh.benutzerverwaltung;
+package ch.bbw.jh.benutzerverwaltung.user;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "users")
+@Table(name = "benutzers")
 public class Benutzer {
     @Id
     @GeneratedValue(generator = "generatorMember", strategy = GenerationType.AUTO)
@@ -22,17 +22,17 @@ public class Benutzer {
 
     private String password;
     private String email;
-    private String phoneNumber;
+    private String phonenumber;
 
     private String benutzername;
     private String role;
 
-    public Benutzer(String name, String lastname, String password, String email, String phoneNumber, String role) {
+    public Benutzer(String name, String lastname, String password, String email, String phonenumber, String role) {
         this.name = name;
         this.lastname = lastname;
         this.password = password;
         this.email = email;
-        this.phoneNumber = phoneNumber;
+        this.phonenumber = phonenumber;
         benutzername= name.trim().toLowerCase()+"."+lastname.trim().toLowerCase();
         this.role = role;
     }
@@ -87,12 +87,12 @@ public class Benutzer {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhonenumber() {
+        return phonenumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhonenumber(String phoneNumber) {
+        this.phonenumber = phoneNumber;
     }
 
     public String getRole() {

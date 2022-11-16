@@ -1,5 +1,7 @@
-package ch.bbw.jh.benutzerverwaltung;
+package ch.bbw.jh.benutzerverwaltung.user;
 
+import ch.bbw.jh.benutzerverwaltung.user.Benutzer;
+import ch.bbw.jh.benutzerverwaltung.user.BenutzerGrantedRole;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 

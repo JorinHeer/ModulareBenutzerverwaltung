@@ -1,4 +1,4 @@
-package ch.bbw.jh.benutzerverwaltung;
+package ch.bbw.jh.benutzerverwaltung.user;
 
 import org.springframework.security.core.GrantedAuthority;
 

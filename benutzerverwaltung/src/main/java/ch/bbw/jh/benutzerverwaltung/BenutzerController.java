@@ -1,6 +1,8 @@
 package ch.bbw.jh.benutzerverwaltung;
 
 
+import ch.bbw.jh.benutzerverwaltung.user.Benutzer;
+import ch.bbw.jh.benutzerverwaltung.user.BenutzerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +18,6 @@ public class BenutzerController {
     @GetMapping("/get-users")
     public String getRequestUsers(Model model) {
         System.out.println("getRequestUsers");
-        benutzerService.add(new Benutzer("name"," dfasdf", "123123", "sdfadf","qqwerqr","USER"));
         model.addAttribute("users", benutzerService.getAll());
         return "users";
     }
@@ -37,7 +38,7 @@ public class BenutzerController {
         value.setName(benutzer.getName());
         value.setLastname(benutzer.getLastname());
         value.setPassword(benutzer.getPassword());
-        value.setPhoneNumber(benutzer.getPhoneNumber());
+        value.setPhonenumber(benutzer.getPhonenumber());
         value.setEmail(benutzer.getEmail());
         value.setBenutzername(benutzer.getName().trim().toLowerCase()+"."+benutzer.getLastname().trim().toLowerCase());
         System.out.println("editUser post: update member" + value);

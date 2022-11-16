@@ -1,5 +1,6 @@
-package ch.bbw.jh.benutzerverwaltung;
+package ch.bbw.jh.benutzerverwaltung.user;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -17,19 +18,20 @@ public class RegisterUser {
 
 
     @NotEmpty(message = "password may not be empty" )
-    @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[$@!%?&]).{8,20}$")
+    @Pattern(message = "Passwort braucht mindestens 8 Zeichen, einen Grossbuchstaben, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen.",
+            regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[$@!%?&]).{8,20}$")
     private String password;
 
 
     @NotEmpty(message = "confirmation may not be empty" )
-    @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[$@!%?&]).{8,20}$")
+    @Pattern(message = "Passwort braucht mindestens 8 Zeichen, einen Grossbuchstaben, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen.",
+            regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[$@!%?&]).{8,20}$")
     private String confirmation;
 
-    @Size(min = 1000)
     private String message;
-    @Size(min = 1000)
+    @Email(message = "gib eine gültige E-Mail Adresse ein")
     private String email;
-    @Size(min = 1000)
+    @Pattern(regexp = "^^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$", message = "gib eine gülige Telefonnummer an")
     private String phone;
 
     public String getEmail() {
@@ -78,14 +80,14 @@ public class RegisterUser {
     }
 
     public void setMessage(String message) {
-        this.message = message;
+        this.message = message+"\n";
     }
 
     public Benutzer toUser() {
         Benutzer benutzer = new Benutzer();
         benutzer.setName(name);
         benutzer.setLastname(lastname);
-        benutzer.setPhoneNumber(phone);
+        benutzer.setPhonenumber(phone);
         benutzer.setEmail(email);
         benutzer.setRole("member");
         benutzer.setBenutzername(name.toLowerCase().trim()+"."+lastname.toLowerCase().trim());

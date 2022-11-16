@@ -1,6 +1,7 @@
-package ch.bbw.jh.benutzerverwaltung;
+package ch.bbw.jh.benutzerverwaltung.user;
 
 
+import ch.bbw.jh.benutzerverwaltung.user.Benutzer;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

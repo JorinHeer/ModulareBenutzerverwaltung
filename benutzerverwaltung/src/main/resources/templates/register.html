@@ -57,7 +57,7 @@
     <label for="form_email">Email *</label>
     <input id="form_email" type="text" name="name" class="form-control" placeholder="Please enter your Email *"
            required="required" data-error="E-Mail muss angegeben werden"
-           th:field="*{email}" minlength="2" maxlength="24">
+           th:field="*{email}" minlength="2" maxlength="40">
     <b th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</b>
     <div class="help-block with-errors"></div>
   </div>

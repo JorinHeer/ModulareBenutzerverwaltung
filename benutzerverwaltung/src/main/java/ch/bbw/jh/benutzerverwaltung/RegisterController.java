@@ -1,5 +1,7 @@
 package ch.bbw.jh.benutzerverwaltung;
 
+import ch.bbw.jh.benutzerverwaltung.user.BenutzerService;
+import ch.bbw.jh.benutzerverwaltung.user.RegisterUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,10 +46,7 @@ public class RegisterController {
                         + " allready exists");
                 return "register";
             }
-            for (ConstraintViolation<RegisterUser> violaton:
-                 constraintViolations) {
-                registerUser.setMessage(registerUser.getMessage()+violaton.getMessage()+"\n");
-            }
+                registerUser.setMessage(constraintViolations.iterator().next().getMessage());
             return "register";
 
         }else {

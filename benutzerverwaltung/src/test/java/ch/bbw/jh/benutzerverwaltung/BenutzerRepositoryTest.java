@@ -1,6 +1,8 @@
 package ch.bbw.jh.benutzerverwaltung;
 
 
+import ch.bbw.jh.benutzerverwaltung.user.Benutzer;
+import ch.bbw.jh.benutzerverwaltung.user.BenutzerRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
