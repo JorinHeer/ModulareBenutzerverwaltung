@@ -18,13 +18,13 @@ public class BenutzerService implements UserDetailsService {
         return repository.findAll();
     }
 
-    public void add(Benutzer member) {
-        repository.save(member);
+    public void add(Benutzer benutzer) {
+        repository.save(benutzer);
     }
 
-    public void update(Long id, Benutzer member) {
+    public void update(Long id, Benutzer benutzer) {
         //save geht auch für update.
-        repository.save(member);
+        repository.save(benutzer);
     }
 
     public void deleteById(Long id) {
@@ -32,14 +32,14 @@ public class BenutzerService implements UserDetailsService {
     }
 
     public Benutzer getById(Long id) {
-        Iterable<Benutzer> memberitr = repository.findAll();
+        Iterable<Benutzer> useritr = repository.findAll();
 
-        for(Benutzer member: memberitr){
-            if (member.getId() == id) {
-                return member;
+        for(Benutzer benutzer: useritr){
+            if (benutzer.getId() == id) {
+                return benutzer;
             }
         }
-        System.out.println("MemberService:getById(), id does not exist in repository: " + id);
+        System.out.println("UserService:getById(), id does not exist in repository: " + id);
         return null;
     }
 
@@ -51,7 +51,7 @@ public class BenutzerService implements UserDetailsService {
                 return benutzer;
             }
         }
-        System.out.println("MemberService:getByUserName(), username does not exist in repository: " + username);
+        System.out.println("UserService:getByUserName(), username does not exist in repository: " + username);
         return null;
     }
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {

@@ -5,16 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig {
     @Autowired
     BenutzerService benutzerService;
 
@@ -30,23 +27,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         provider.setUserDetailsService(this.benutzerService);
         return provider;
     }
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(daoAuthenticationProvider());
-    }
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+
+
+    @Bean
+    protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.authenticationProvider(daoAuthenticationProvider());
         http
                 .authorizeHttpRequests()
                         .antMatchers("/", "/index").authenticated()
-                        .antMatchers("/h2-console/**").permitAll()
+                        .antMatchers("/h2-console/**").hasAuthority("ADMIN")
+                        .antMatchers("/users", "/get-users").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
-
+                .and().exceptionHandling().accessDeniedPage("/403")
                 .and().formLogin((form) -> form
                         .loginPage("/login")
                         .permitAll()
                 )
-                .logout((logout) -> logout.permitAll());
-
+                .logout((logout) -> logout.permitAll())
+                ;;
+        return http.build();
     }
 }

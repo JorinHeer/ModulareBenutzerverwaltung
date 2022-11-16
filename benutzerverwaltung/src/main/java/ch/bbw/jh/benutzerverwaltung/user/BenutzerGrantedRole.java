@@ -8,7 +8,7 @@ public class BenutzerGrantedRole implements GrantedAuthority {
 
     public BenutzerGrantedRole(String role) {
         super();
-        this.authority = authority;
+        this.authority = role;
     }
 
     public void setAuthority(String authority) {
@@ -22,6 +22,6 @@ public class BenutzerGrantedRole implements GrantedAuthority {
 
     @Override
     public String toString() {
-        return "MemberGrantedAuthority [auhtority="+authority+"]";
+        return "UserGrantedAuthority [auhtority="+authority+"]";
     }
 }

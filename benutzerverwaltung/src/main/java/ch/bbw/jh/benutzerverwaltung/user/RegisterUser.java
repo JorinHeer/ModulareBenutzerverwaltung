@@ -1,9 +1,12 @@
 package ch.bbw.jh.benutzerverwaltung.user;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.security.SecureRandom;
 
 public class RegisterUser {
 
@@ -89,15 +92,17 @@ public class RegisterUser {
         benutzer.setLastname(lastname);
         benutzer.setPhonenumber(phone);
         benutzer.setEmail(email);
-        benutzer.setRole("member");
+        benutzer.setRole("user");
         benutzer.setBenutzername(name.toLowerCase().trim()+"."+lastname.toLowerCase().trim());
-        benutzer.setPassword(password);
+        benutzer.setPassword(encode(password));
 
         return benutzer;
     }
     public String encode(String passw){
-        //TODO
-        return null;
+        int strenght = 10;
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(strenght, new SecureRandom());
+        String encodedPassw = bCryptPasswordEncoder.encode(passw);
+        return encodedPassw;
     }
 
     @Override
