@@ -2,7 +2,6 @@ package ch.bbw.jh.benutzerverwaltung.user;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "benutzers")
@@ -12,16 +11,17 @@ public class Benutzer {
     @SequenceGenerator(name = "generatorMember", initialValue=20)
     private long id;
 
-    @NotEmpty(message = "prename may not be empty" )
-    @Size(min=2, max=24, message="Die Länge des Vornamens muss 2 bis 25 Zeichen sein.")
+    @NotEmpty(message = "name may not be empty" )
+
     private String name;
     @NotEmpty (message = "lastname may not be empty" )
-    @Size(min=2, max=24, message="Die Länge des Nachnamens 2 bis 25 Zeichen sein.")
     private String lastname;
 
-
+    @NotEmpty(message = "password may not be empty" )
     private String password;
+
     private String email;
+
     private String phonenumber;
 
     private String benutzername;
@@ -47,7 +47,7 @@ public class Benutzer {
     public void setBenutzername(String benutzername) {
         this.benutzername = benutzername.toLowerCase();
     }
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

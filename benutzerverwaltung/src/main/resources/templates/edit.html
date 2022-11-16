@@ -32,41 +32,76 @@
 </div>
 <section>
     <h4 style="margin-top: 30px">Edit User</h4>
-    <form id="register-form" method="post" action="" role="form" th:action="@{/edit-profile}" th:object="${user}">
+    <form id="register-form" method="post" action="" role="form" th:action="@{/edit-profile}" th:object="${changeProfile}">
         <div class="form-group">
-            <label for="form_name">Vorname *</label>
-            <input id="form_name" type="text" name="name" class="form-control"
-                   placeholder="Please enter your name *" required="required"
-                   data-error="Firstname is required." th:field="*{name}">
+            <div class="form-group">
+                <label for="form_name">Vorname *</label>
+                <input id="form_name" type="text" name="name" class="form-control" placeholder="Please enter your firstname *"
+                       required="required" data-error="Vorname muss angegeben werden"
+                       th:field="*{name}" minlength="2" maxlength="24">
+                <b th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</b>
+                <div class="help-block with-errors"></div>
+            </div>
+            <div class="form-group">
+                <label for="form_lastname">Nachname *</label> <input id="form_lastname" type="text" name="surname"
+                                                                     class="form-control"
+                                                                     placeholder="Please enter your lastname *"
+                                                                     required="required"
+                                                                     data-error="Nachname muss angegeben werden"
+                                                                     th:field="*{lastname}" minlength="2" maxlength="24">
+                <b th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">Lastname Error</b>
+                <div class="help-block with-errors"></div>
+            </div>
+            <div class="form-group">
+                <label for="form_email">Email *</label>
+                <input id="form_email" type="text" name="name" class="form-control" placeholder="Please enter your Email *"
+                       required="required" data-error="E-Mail muss angegeben werden"
+                       th:field="*{email}" minlength="2" maxlength="40">
+                <b th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</b>
+                <div class="help-block with-errors"></div>
+            </div>
+            <div class="form-group">
+                <label for="form_phone">Telefon *</label>
+                <input id="form_phone" type="text" name="name" class="form-control" placeholder="Please enter your phone number *"
+                       required="required" data-error="Telefonnummer muss angegeben werden"
+                       th:field="*{phone}" minlength="2" maxlength="24">
+                <b th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Telefonnummer Error</b>
+                <div class="help-block with-errors"></div>
+            </div>
+            <div class="form-group">
+                <label for="form_password">Password *</label> <input id="form_password" type="password" name="password"
+                                                                     class="form-control"
+                                                                     placeholder="Please enter your password *"
+                                                                     data-error="gültiges Passwort muss verwendet werden"
+                                                                     th:field="*{password}" minlength="4">
+                <b th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</b>
+                <div class="help-block with-errors"></div>
+            </div>
+            <div class="form-group">
+                <label for="form_confirmation">Passwort confirmation *</label> <input id="form_confirmation" type="password" name="confirmation"
+                                                                                      class="form-control" placeholder="Please enter your password*"
+                                                                                      data-error="Valid confirmation is required."
+                                                                                      th:field="*{confirmation}" minlength="4">
+                <b th:if="${#fields.hasErrors('confirmation')}" th:errors="*{confirmation}" th:text="*{confirmation}">Confirmation Error</b>
+                <div class="help-block with-errors"></div>
+            </div>
+            <div class="form-group">
+                <label for="form_id">Id</label>
+                <input id="form_id" type="text" name="name" class="form-control"
+                       placeholder="" readonly="readonly" th:field="*{id}">
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="submit" class="btn btn-success btn-send" value="Register">
+                    <p></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <b th:text="*{message}"></b>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="form_lastname">Nachname *</label>
-            <input id="form_lastname" type="text" name="surname" class="form-control"
-                   placeholder="Please enter your lastname *" required="required"
-                   data-error="Lastname is required." th:field="*{lastname}">
-        </div>
-        <div class="form-group">
-            <label for="form_email">Email *</label>
-            <input id="form_email" type="text" name="authority" class="form-control"
-                   placeholder="Please enter your email *" required="required"
-                   data-error="Valid email is required." th:field="*{email}">
-        </div>
-        <div>
-            <label for="form_phone">Telefon *</label>
-            <input id="form_phone" type="text" name="authority" class="form-control"
-                   placeholder="Please enter your phone number *" required="required"
-                   data-error="Valid phonenumber is required." th:field="*{phonenumber}">
-        </div>
-        <div class="form-group">
-            <label for="form_benutzername">Benutzername</label>
-            <input id="form_benutzername" type="text" name="name" class="form-control"
-                   placeholder="" readonly="readonly" th:field="*{benutzername}">
-        </div>
-        <div class="col-md-12">
-            <input type="submit" class="btn btn-success btn-send" value="Save">
-            <p></p>
-        </div>
-
     </form>
     </div>
 

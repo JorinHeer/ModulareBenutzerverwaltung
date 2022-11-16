@@ -1,5 +1,7 @@
 package ch.bbw.jh.benutzerverwaltung.user;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class BenutzerService implements UserDetailsService {
+    private static final Logger logger = LoggerFactory.getLogger(BenutzerService.class);
     @Autowired
     private BenutzerRepository repository;
 
@@ -39,7 +42,7 @@ public class BenutzerService implements UserDetailsService {
                 return benutzer;
             }
         }
-        System.out.println("UserService:getById(), id does not exist in repository: " + id);
+        logger.info("UserService:getById(), id does not exist in repository: " + id);
         return null;
     }
 
@@ -51,7 +54,7 @@ public class BenutzerService implements UserDetailsService {
                 return benutzer;
             }
         }
-        System.out.println("UserService:getByUserName(), username does not exist in repository: " + username);
+        logger.info("UserService:getByUserName(), username does not exist in repository: " + username);
         return null;
     }
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {

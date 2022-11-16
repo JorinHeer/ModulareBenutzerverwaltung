@@ -1,5 +1,6 @@
-package ch.bbw.jh.benutzerverwaltung.user;
+package ch.bbw.jh.benutzerverwaltung.user.registerUser;
 
+import ch.bbw.jh.benutzerverwaltung.user.Benutzer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.validation.constraints.Email;
@@ -10,7 +11,7 @@ import java.security.SecureRandom;
 
 public class RegisterUser {
 
-    @NotEmpty(message = "prename may not be empty" )
+    @NotEmpty(message = "name may not be empty" )
     @Size(min=2, max=24, message="Die Länge des Vornamens: 2 bis 25 Zeichen")
     private String name;
 

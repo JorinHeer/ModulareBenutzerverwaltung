@@ -1,7 +1,7 @@
-package ch.bbw.jh.benutzerverwaltung;
+package ch.bbw.jh.benutzerverwaltung.user.registerUser;
 
+import ch.bbw.jh.benutzerverwaltung.BenutzerController;
 import ch.bbw.jh.benutzerverwaltung.user.BenutzerService;
-import ch.bbw.jh.benutzerverwaltung.user.RegisterUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
