@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+  <title>Benutzerverwaltung</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+<div id="includedHeader">
+  <div class="row">
+    <div class="col-sm-10 jumbotron text-left pr_bg_green" style="margin-bottom:0">
+      <h1><b><i>Benutzerverwaltung</i></b></h1>
+    </div>
+  </div>
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <a class="navbar-brand" th:href="@{/index}" style="color: grey ">Home</a>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="navbar-brand" th:href="@{/edit-profile}">Edit Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/get-users}">Users</a>
+        </li>
+        <li class="nav-item">
+          <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+          </form>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+
+<section>
+  <h4 style="margin-top: 30px">Edit User</h4>
+  <form id="register-form" method="post" action="" role="form" th:action="@{/edit-user}" th:object="${changeUser}">
+    <div class="form-group">
+      <div class="form-group">
+        <label for="form_name">Vorname *</label>
+        <input id="form_name" type="text" name="name" class="form-control" placeholder="Please enter your firstname *"
+               required="required" data-error="Vorname muss angegeben werden"
+               th:field="*{name}" minlength="2" maxlength="24">
+        <b th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</b>
+        <div class="help-block with-errors"></div>
+      </div>
+      <div class="form-group">
+        <label for="form_lastname">Nachname *</label> <input id="form_lastname" type="text" name="surname"
+                                                             class="form-control"
+                                                             placeholder="Please enter your lastname *"
+                                                             required="required"
+                                                             data-error="Nachname muss angegeben werden"
+                                                             th:field="*{lastname}" minlength="2" maxlength="24">
+        <b th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">Lastname Error</b>
+        <div class="help-block with-errors"></div>
+      </div>
+      <div class="form-group">
+        <label for="form_email">Email *</label>
+        <input id="form_email" type="text" name="name" class="form-control" placeholder="Please enter your Email *"
+               required="required" data-error="E-Mail muss angegeben werden"
+               th:field="*{email}" minlength="2" maxlength="40">
+        <b th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</b>
+        <div class="help-block with-errors"></div>
+      </div>
+      <div class="form-group">
+        <label for="form_phone">Telefon *</label>
+        <input id="form_phone" type="text" name="name" class="form-control" placeholder="Please enter your phone number *"
+               required="required" data-error="Telefonnummer muss angegeben werden"
+               th:field="*{phone}" minlength="2" maxlength="24">
+        <b th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Telefonnummer Error</b>
+        <div class="help-block with-errors"></div>
+      </div>
+      <div class="form-group">
+        <label for="form_password">Password *</label> <input id="form_password" type="password" name="password"
+                                                             class="form-control"
+                                                             placeholder="Please enter your password *"
+                                                             data-error="gültiges Passwort muss verwendet werden"
+                                                             th:field="*{password}" minlength="4">
+        <b th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</b>
+        <div class="help-block with-errors"></div>
+      </div>
+      <div class="form-group">
+        <label for="form_confirmation">Passwort confirmation *</label> <input id="form_confirmation" type="password" name="confirmation"
+                                                                              class="form-control" placeholder="Please enter your password*"
+                                                                              data-error="Valid confirmation is required."
+                                                                              th:field="*{confirmation}" minlength="4">
+        <b th:if="${#fields.hasErrors('confirmation')}" th:errors="*{confirmation}" th:text="*{confirmation}">Confirmation Error</b>
+        <div class="help-block with-errors"></div>
+      </div>
+      <div class="form-group">
+        <label for="form_id">Id</label>
+        <input id="form_id" type="text" name="name" class="form-control"
+               placeholder="" readonly="readonly" th:field="*{id}">
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <input type="submit" class="btn btn-success btn-send" value="Register">
+          <p></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <b th:text="*{message}"></b>
+        </div>
+      </div>
+    </div>
+  </form>
+  </div>
+
+  <div style="height: 200px"></div>
+</section>
+</body>
+</html>
