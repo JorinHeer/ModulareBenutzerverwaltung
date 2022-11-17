@@ -1,2 +1,0 @@
-INSERT INTO benutzers (id, name, lastname, password, email, phonenumber, benutzername, role, enabled) VALUES
-    (1,'Jorin', 'Heer', '$2a$10$fdivNJC5meS7mOM.QVKqZeVDHtn46arLIIgik6xbUg2w3eACiazCC', 'jorin.heer@stud.kbw.ch','0791350246','jorin.heer', 'ADMIN', true);
