@@ -26,6 +26,7 @@ public class Benutzer {
 
     private String benutzername;
     private String role;
+    private boolean enabled= true;
 
     public Benutzer(String name, String lastname, String password, String email, String phonenumber, String role) {
         this.name = name;
@@ -35,6 +36,16 @@ public class Benutzer {
         this.phonenumber = phonenumber;
         benutzername= name.trim().toLowerCase()+"."+lastname.trim().toLowerCase();
         this.role = role;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void toggleEnabled() {
+        if (enabled == false){
+        this.enabled = true;
+        }else this.enabled = false;
     }
 
     public Benutzer() {

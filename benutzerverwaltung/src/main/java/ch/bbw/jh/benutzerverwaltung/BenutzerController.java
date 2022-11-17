@@ -1,6 +1,7 @@
 package ch.bbw.jh.benutzerverwaltung;
 
 
+import ch.bbw.jh.benutzerverwaltung.user.Benutzer;
 import ch.bbw.jh.benutzerverwaltung.user.BenutzerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,13 @@ public class BenutzerController {
     public String deleteUser(@RequestParam(name = "id", required = true) long id, Model model) {
         logger.info(getCurrentUser()+": deleteUser: " + id);
         benutzerService.deleteById(id);
+        return "redirect:/get-users";
+    }
+    @GetMapping("/block-user")
+    public String blockUser(@RequestParam(name = "id", required = true) long id, Model model) {
+        logger.info(getCurrentUser()+": deleteUser: " + id);
+        Benutzer benutzer = benutzerService.getById(id);
+        benutzer.toggleEnabled();
         return "redirect:/get-users";
     }
     public String getCurrentUser(){

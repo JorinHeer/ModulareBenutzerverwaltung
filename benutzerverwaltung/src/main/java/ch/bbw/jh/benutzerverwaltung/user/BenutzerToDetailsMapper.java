@@ -11,16 +11,17 @@ import java.util.Arrays;
 public class BenutzerToDetailsMapper {
     private static final Logger logger = LoggerFactory.getLogger(BenutzerToDetailsMapper.class);
     static public UserDetails toUserDetails(Benutzer benutzer) {
-        User user = null;
 
+        java.util.Collection<BenutzerGrantedRole> roles = new ArrayList<>();
         if(benutzer != null) {
             logger.info("UserToUserDetailsMapper.toUserDetails(): user: "+ benutzer);
-            java.util.Collection<BenutzerGrantedRole> roles = new ArrayList<>();
             roles.add(new BenutzerGrantedRole(benutzer.getRole()));
             logger.info("UserToUserDetailsMapper.toUserDetails(): roles: "+ Arrays.toString(roles.toArray()));
 
-            user = new User(benutzer.getName() + "." + benutzer.getLastname(), benutzer.getPassword(), true, true, true, true, roles);
+            return new User(benutzer.getName() + "." + benutzer.getLastname(), benutzer.getPassword(), benutzer.isEnabled(), true, true, true, roles);
+
         }
-        return user;
+        return new User(
+                " ", " ", true, true, true, true, roles);
     }
 }

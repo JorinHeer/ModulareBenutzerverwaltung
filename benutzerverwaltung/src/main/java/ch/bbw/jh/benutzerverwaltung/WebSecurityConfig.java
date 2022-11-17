@@ -37,6 +37,7 @@ public class WebSecurityConfig {
                         .antMatchers("/", "/index").authenticated()
                         .antMatchers("/h2-console/**").hasAuthority("ADMIN")
                         .antMatchers("/users", "/get-users").hasAuthority("ADMIN")
+                        .antMatchers("/changeusers", "/edit-user").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
                 .and().exceptionHandling().accessDeniedPage("/403")
                 .and().formLogin((form) -> form

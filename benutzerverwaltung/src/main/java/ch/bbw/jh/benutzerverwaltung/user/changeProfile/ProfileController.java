@@ -35,11 +35,13 @@ public class ProfileController {
     }
     @PostMapping("/edit-profile")
     public String postRequestEditUsers(ChangeProfile changeProfile) {
+        logger.info(getCurrentUser()+": Post edit profile");
+        String redirect = "login?logout";
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
         Set<ConstraintViolation<ChangeProfile>> constraintViolations =
                 validator.validate( changeProfile );
-        if (!changeProfile.getPassword().isEmpty()&& changeProfile.equals("")){
+        if (!changeProfile.getPassword().isEmpty()&& !changeProfile.getPassword().equals("")){
             if (!changeProfile.getPassword().equals(changeProfile.getConfirmation())) {
                     changeProfile.setMessage("Password and Confirmation not the same!");
                     logger.info(getCurrentUser()+": failed profile change, username");
@@ -48,11 +50,12 @@ public class ProfileController {
         }
         if (benutzerService.getByUserName(changeProfile.getName().toLowerCase()
                 + "." + changeProfile.getLastname().toLowerCase()) != null) {
-            changeProfile.setMessage("Username " +
-                    changeProfile.getName().toLowerCase() + "." + changeProfile.getLastname().toLowerCase()
-                    + " allready exists");
+            redirect = "index";
             if (!benutzerService.getByUserName(changeProfile.getName().toLowerCase()
                     + "." + changeProfile.getLastname().toLowerCase()).getId().equals(changeProfile.getId())){
+                changeProfile.setMessage("Username " +
+                        changeProfile.getName().toLowerCase() + "." + changeProfile.getLastname().toLowerCase()
+                        + " allready exists");
                 logger.info(getCurrentUser()+": failed profile change, username");
                 return "edit";
             }
@@ -64,21 +67,20 @@ public class ProfileController {
             changeProfile.setMessage(constraintViolations.iterator().next().getMessage());
             return "edit";
 
-        }else {
+        }
             logger.info(getCurrentUser()+": successfully changed user: "+changeProfile.toUser().getBenutzername());
-
             Benutzer user = benutzerService.getById(changeProfile.getId());
             user.setName(changeProfile.getName());
             user.setLastname(changeProfile.getLastname());
             user.setPhonenumber(changeProfile.getPhone());
             user.setEmail(changeProfile.getEmail());
             user.setBenutzername(changeProfile.getName().toLowerCase().trim()+"."+changeProfile.getLastname().toLowerCase().trim());
-            if (!changeProfile.getPassword().equals("")|| !changeProfile.getPassword().isEmpty()) {
-                user.setPassword(changeProfile.getPassword());
+            if (!changeProfile.getPassword().isEmpty()&& !changeProfile.getPassword().equals("")){
+                user.setPassword(changeProfile.encode(changeProfile.getPassword()));
             }
             benutzerService.update(changeProfile.getId(), user);
-            return "redirect:/index";
-        }
+            return "redirect:/"+redirect;
+
     }
     public String getCurrentUser(){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

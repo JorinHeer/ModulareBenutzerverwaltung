@@ -1,5 +1,6 @@
 package ch.bbw.jh.benutzerverwaltung.user;
 
+import ch.bbw.jh.benutzerverwaltung.LoginAttemptService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +10,18 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Service
 @Transactional
 public class BenutzerService implements UserDetailsService {
     private static final Logger logger = LoggerFactory.getLogger(BenutzerService.class);
     @Autowired
     private BenutzerRepository repository;
+    @Autowired
+    private LoginAttemptService loginAttemptService;
+    @Autowired
+    private HttpServletRequest request;
 
     public Iterable<Benutzer> getAll(){
 
@@ -54,11 +61,25 @@ public class BenutzerService implements UserDetailsService {
                 return benutzer;
             }
         }
-        logger.info("UserService:getByUserName(), username does not exist in repository: " + username);
         return null;
     }
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         Benutzer benutzer = getByUserName(s);
-        return BenutzerToDetailsMapper.toUserDetails(benutzer);
+        String ip = getClientIP();
+        if (loginAttemptService.isBlocked(ip)) {
+            throw new RuntimeException("blocked");
+        }
+        try {
+            return BenutzerToDetailsMapper.toUserDetails(benutzer);
+        }catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private String getClientIP() {
+        String xfHeader = request.getHeader("X-Forwarded-For");
+        if (xfHeader == null){
+            return request.getRemoteAddr();
+        }
+        return xfHeader.split(",")[0];
     }
 }

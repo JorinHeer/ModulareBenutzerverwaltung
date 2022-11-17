@@ -79,7 +79,7 @@ public class ChangeUser {
         this.lastname = lastname;
     }
     public String getPassword() {
-        return encode(password);
+        return password;
     }
     public void setPassword(String password) {
         this.password = password;

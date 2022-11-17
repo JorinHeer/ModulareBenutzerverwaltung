@@ -37,11 +37,12 @@ public class ChangeController {
     }
     @PostMapping("/edit-user")
     public String postRequestEditUsers(ChangeUser changeUser, Model model) {
+        logger.info(getCurrentUser()+": Post edit user");
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
         Set<ConstraintViolation<ChangeUser>> constraintViolations =
                 validator.validate( changeUser );
-        if (!changeUser.getPassword().isEmpty()&& changeUser.equals("")) {
+        if (!changeUser.getPassword().isEmpty()&& !changeUser.getPassword().equals("")) {
             if (!changeUser.getPassword().equals(changeUser.getConfirmation())) {
                 changeUser.setMessage("Password and Confirmation not the same!");
                 logger.info(getCurrentUser()+": failed profile change");
@@ -50,9 +51,6 @@ public class ChangeController {
         }
         if (benutzerService.getByUserName(changeUser.getName().toLowerCase()
                 + "." + changeUser.getLastname().toLowerCase()) != null) {
-            changeUser.setMessage("Username " +
-                    changeUser.getName().toLowerCase() + "." + changeUser.getLastname().toLowerCase()
-                    + " allready exists");
             if (!benutzerService.getByUserName(changeUser.getName().toLowerCase()
                     + "." + changeUser.getLastname().toLowerCase()).getId().equals(changeUser.getId())){
                 changeUser.setMessage("Username " +
@@ -78,7 +76,7 @@ public class ChangeController {
             user.setEmail(changeUser.getEmail());
             user.setBenutzername(changeUser.getName().toLowerCase().trim()+"."+changeUser.getLastname().toLowerCase().trim());
             if (!changeUser.getPassword().equals("")|| !changeUser.getPassword().isEmpty()) {
-                user.setPassword(changeUser.getPassword());
+                user.setPassword(changeUser.encode(changeUser.getPassword()));
             }
             benutzerService.update(changeUser.getId(), user);
             return "redirect:/index";
