@@ -1,5 +1,7 @@
 package ch.bbw.jh.benutzerverwaltung;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
@@ -10,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class AuthenticationSuccessEventListener implements
         ApplicationListener<AuthenticationSuccessEvent> {
-
+    private static final Logger logger = LoggerFactory.getLogger(BenutzerController.class);
     @Autowired
     private HttpServletRequest request;
 
@@ -22,8 +24,10 @@ public class AuthenticationSuccessEventListener implements
         final String xfHeader = request.getHeader("X-Forwarded-For");
         if (xfHeader == null) {
             loginAttemptService.loginSucceeded(request.getRemoteAddr());
+            logger.info(request.getRemoteAddr()+" User logged in");
         } else {
             loginAttemptService.loginSucceeded(xfHeader.split(",")[0]);
         }
     }
+
 }

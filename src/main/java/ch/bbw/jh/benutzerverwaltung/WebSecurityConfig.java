@@ -35,17 +35,17 @@ public class WebSecurityConfig {
         http
                 .authorizeHttpRequests()
                         .antMatchers("/", "/index").authenticated()
+                        .antMatchers("/edit-profile").authenticated()
                         .antMatchers("/h2-console/**").hasAuthority("ADMIN")
                         .antMatchers("/users", "/get-users").hasAuthority("ADMIN")
                         .antMatchers("/changeusers", "/edit-user").hasAuthority("ADMIN")
-                        .anyRequest().authenticated()
+                        .anyRequest().hasAuthority("ADMIN")
                 .and().exceptionHandling().accessDeniedPage("/403")
                 .and().formLogin((form) -> form
                         .loginPage("/login")
                         .permitAll()
                 )
-                .logout((logout) -> logout.permitAll())
-                ;;
+                .logout((logout) -> logout.permitAll());
         return http.build();
     }
 }

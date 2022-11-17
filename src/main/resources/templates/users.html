@@ -55,7 +55,7 @@
                     <td style="outline-style: auto" th:text="${user.benutzername}"></td>
                     <td style="outline-style: auto" th:text="${user.id}"></td>
                     <td><a class="btn btn-success" th:href="@{/edit-user?id={id}(id=${user.id})}">Edit</a></td>
-                    <td><a class="btn btn-warning" th:href="@{/delete-user?id={id}(id=${user.id})}">Delete</a></td>
+                    <td><a class="btn btn-warning" th:name="${_csrf.headerName}" th:value="${_csrf.token}" th:href="@{/delete-user?id={id}(id=${user.id})}">Delete</a></td>
                     <td><a class="btn btn-warning" th:href="@{/block-user?id={id}(id=${user.id})}">Block</a></td>
                 </tr>
                 </tbody>
