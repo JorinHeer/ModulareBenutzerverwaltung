@@ -3,6 +3,7 @@ package ch.bbw.jh.benutzerverwaltung;
 
 import ch.bbw.jh.benutzerverwaltung.user.Benutzer;
 import ch.bbw.jh.benutzerverwaltung.user.BenutzerRepository;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -36,7 +38,12 @@ public class BenutzerRepositoryTest {
         assertEquals(benutzerRepository.findById(20L).get().getName(), "Tomas");
 
     }
+    @Test
+    public void testDeleteUser() {
+        benutzerRepository.deleteById(20L);
+        Assert.assertEquals(benutzerRepository.findById(20L), Optional.empty());
 
+    }
     @Before
     public void setup() {
         benutzerRepository.save(new Benutzer("Tomas",
