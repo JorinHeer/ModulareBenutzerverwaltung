@@ -20,7 +20,7 @@ import javax.validation.ValidatorFactory;
 import java.util.Set;
 
 @Controller
-public class ProfileController {
+public class ProfileFormController {
     private static final Logger logger = LoggerFactory.getLogger(BenutzerController.class);
     @Autowired
     BenutzerService benutzerService;
@@ -28,33 +28,33 @@ public class ProfileController {
     public String editProfile(Model model) {
         logger.info(getCurrentUser()+": call edit profile");
         Benutzer user = benutzerService.getByUserName(getCurrentUser());
-        ChangeProfile changeProfile = new ChangeProfile();
-        changeProfile.toChangeProfile(user);
-        model.addAttribute("changeProfile", changeProfile);
+        EditProfile editProfile = new EditProfile();
+        editProfile.toChangeProfile(user);
+        model.addAttribute("editProfile", editProfile);
         return "edit";
     }
     @PostMapping("/edit-profile")
-    public String postRequestEditUsers(ChangeProfile changeProfile) {
+    public String postRequestEditUsers(EditProfile editProfile) {
         logger.info(getCurrentUser()+": Post edit profile");
         String redirect = "login?logout";
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
-        Set<ConstraintViolation<ChangeProfile>> constraintViolations =
-                validator.validate( changeProfile );
-        if (!changeProfile.getPassword().isEmpty()&& !changeProfile.getPassword().equals("")){
-            if (!changeProfile.getPassword().equals(changeProfile.getConfirmation())) {
-                    changeProfile.setMessage("Password and Confirmation not the same!");
+        Set<ConstraintViolation<EditProfile>> constraintViolations =
+                validator.validate(editProfile);
+        if (!editProfile.getPassword().isEmpty()&& !editProfile.getPassword().equals("")){
+            if (!editProfile.getPassword().equals(editProfile.getConfirmation())) {
+                    editProfile.setMessage("Password and Confirmation not the same!");
                     logger.info(getCurrentUser()+": failed profile change, username");
                     return "edit";
             }
         }
-        if (benutzerService.getByUserName(changeProfile.getName().toLowerCase()
-                + "." + changeProfile.getLastname().toLowerCase()) != null) {
+        if (benutzerService.getByUserName(editProfile.getName().toLowerCase()
+                + "." + editProfile.getLastname().toLowerCase()) != null) {
             redirect = "index";
-            if (!benutzerService.getByUserName(changeProfile.getName().toLowerCase()
-                    + "." + changeProfile.getLastname().toLowerCase()).getId().equals(changeProfile.getId())){
-                changeProfile.setMessage("Username " +
-                        changeProfile.getName().toLowerCase() + "." + changeProfile.getLastname().toLowerCase()
+            if (!benutzerService.getByUserName(editProfile.getName().toLowerCase()
+                    + "." + editProfile.getLastname().toLowerCase()).getId().equals(editProfile.getId())){
+                editProfile.setMessage("Username " +
+                        editProfile.getName().toLowerCase() + "." + editProfile.getLastname().toLowerCase()
                         + " allready exists");
                 logger.info(getCurrentUser()+": failed profile change, username");
                 return "edit";
@@ -64,21 +64,21 @@ public class ProfileController {
         if (!constraintViolations.isEmpty()) {
             logger.info(getCurrentUser()+": failed profile change");
 
-            changeProfile.setMessage(constraintViolations.iterator().next().getMessage());
+            editProfile.setMessage(constraintViolations.iterator().next().getMessage());
             return "edit";
 
         }
-            logger.info(getCurrentUser()+": successfully changed user: "+changeProfile.toUser().getBenutzername());
-            Benutzer user = benutzerService.getById(changeProfile.getId());
-            user.setName(changeProfile.getName());
-            user.setLastname(changeProfile.getLastname());
-            user.setPhonenumber(changeProfile.getPhone());
-            user.setEmail(changeProfile.getEmail());
-            user.setBenutzername(changeProfile.getName().toLowerCase().trim()+"."+changeProfile.getLastname().toLowerCase().trim());
-            if (!changeProfile.getPassword().isEmpty()&& !changeProfile.getPassword().equals("")){
-                user.setPassword(changeProfile.encode(changeProfile.getPassword()));
+            logger.info(getCurrentUser()+": successfully changed user: "+ editProfile.toUser().getBenutzername());
+            Benutzer user = benutzerService.getById(editProfile.getId());
+            user.setName(editProfile.getName());
+            user.setLastname(editProfile.getLastname());
+            user.setPhonenumber(editProfile.getPhone());
+            user.setEmail(editProfile.getEmail());
+            user.setBenutzername(editProfile.getName().toLowerCase().trim()+"."+ editProfile.getLastname().toLowerCase().trim());
+            if (!editProfile.getPassword().isEmpty()&& !editProfile.getPassword().equals("")){
+                user.setPassword(editProfile.encode(editProfile.getPassword()));
             }
-            benutzerService.update(changeProfile.getId(), user);
+            benutzerService.update(editProfile.getId(), user);
             return "redirect:/"+redirect;
 
     }

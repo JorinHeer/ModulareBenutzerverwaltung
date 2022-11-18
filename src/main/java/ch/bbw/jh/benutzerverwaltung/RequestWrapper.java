@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
 public class RequestWrapper  extends HttpServletRequestWrapper {
-    private static final Logger logger = LoggerFactory.getLogger(BenutzerController.class);
+    private static final Logger logger = LoggerFactory.getLogger(RequestWrapper.class);
     public RequestWrapper(HttpServletRequest servletRequest) {
         super(servletRequest);
     }

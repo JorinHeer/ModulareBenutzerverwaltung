@@ -1,13 +1,12 @@
 package ch.bbw.jh.benutzerverwaltung.user.registerUser;
 
 import ch.bbw.jh.benutzerverwaltung.user.Benutzer;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.security.SecureRandom;
 
 public class RegisterUser {
 
@@ -101,8 +100,8 @@ public class RegisterUser {
     }
     public String encode(String passw){
         int strenght = 10;
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(strenght, new SecureRandom());
-        String encodedPassw = bCryptPasswordEncoder.encode(passw);
+        SCryptPasswordEncoder sCryptPasswordEncoder = new SCryptPasswordEncoder();
+        String encodedPassw = sCryptPasswordEncoder.encode(passw);
         return encodedPassw;
     }
 

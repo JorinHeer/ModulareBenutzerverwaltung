@@ -1,15 +1,14 @@
 package ch.bbw.jh.benutzerverwaltung.user.changeUser;
 
 import ch.bbw.jh.benutzerverwaltung.user.Benutzer;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.security.SecureRandom;
 
-public class ChangeUser {
+public class EditUser {
     @NotEmpty(message = "name may not be empty" )
     @Size(min=2, max=24, message="Die Länge des Vornamens: 2 bis 25 Zeichen")
     private String name;
@@ -99,7 +98,7 @@ public class ChangeUser {
         this.message = message+"\n";
     }
 
-    public ChangeUser toChangeUser(Benutzer user){
+    public EditUser toChangeUser(Benutzer user){
         this.setLastname(user.getLastname());
         this.setName(user.getName());
         this.setPassword("");
@@ -122,9 +121,8 @@ public class ChangeUser {
         return benutzer;
     }
     public String encode(String passw){
-        int strenght = 10;
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(strenght, new SecureRandom());
-        String encodedPassw = bCryptPasswordEncoder.encode(passw);
+        SCryptPasswordEncoder sCryptPasswordEncoder = new SCryptPasswordEncoder();
+        String encodedPassw = sCryptPasswordEncoder.encode(passw);
         return encodedPassw;
     }
 

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class LogoutSuccessListener implements
         ApplicationListener<LogoutSuccessEvent> {
-    private static final Logger logger = LoggerFactory.getLogger(BenutzerController.class);
+    private static final Logger logger = LoggerFactory.getLogger(LogoutSuccessListener.class);
     @Override
     public void onApplicationEvent(LogoutSuccessEvent event) {
         logger.info("User has logged out");

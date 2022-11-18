@@ -21,7 +21,7 @@ import java.util.Set;
 
 @Controller
 @Validated
-public class RegisterController {
+public class RegisterFormController {
     private static final Logger logger = LoggerFactory.getLogger(BenutzerController.class);
     @Autowired
     BenutzerService benutzerService;

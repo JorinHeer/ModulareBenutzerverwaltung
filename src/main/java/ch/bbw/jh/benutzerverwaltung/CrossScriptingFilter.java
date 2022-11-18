@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 @WebFilter
 public class CrossScriptingFilter implements Filter {
-    private static final Logger logger = LoggerFactory.getLogger(BenutzerController.class);
+    private static final Logger logger = LoggerFactory.getLogger(CrossScriptingFilter.class);
     private FilterConfig filterConfig;
 
     public void init(FilterConfig filterConfig) throws ServletException {
