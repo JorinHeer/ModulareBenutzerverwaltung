@@ -8,12 +8,18 @@ import org.springframework.stereotype.Service;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * The type Login attempt service.
+ */
 @Service
 public class LoginAttemptService {
 
     private final int MAX_ATTEMPT = 10;
     private LoadingCache<String, Integer> attemptsCache;
 
+    /**
+     * Instantiates a new Login attempt service.
+     */
     public LoginAttemptService() {
         super();
         attemptsCache = CacheBuilder.newBuilder().
@@ -24,10 +30,20 @@ public class LoginAttemptService {
                 });
     }
 
+    /**
+     * Login succeeded.
+     *
+     * @param key the key
+     */
     public void loginSucceeded(String key) {
         attemptsCache.invalidate(key);
     }
 
+    /**
+     * Login failed.
+     *
+     * @param key the key
+     */
     public void loginFailed(String key) {
         int attempts = 0;
         try {
@@ -39,6 +55,12 @@ public class LoginAttemptService {
         attemptsCache.put(key, attempts);
     }
 
+    /**
+     * Is blocked boolean.
+     *
+     * @param key the key
+     * @return the boolean
+     */
     public boolean isBlocked(String key) {
         try {
             return attemptsCache.get(key) >= MAX_ATTEMPT;

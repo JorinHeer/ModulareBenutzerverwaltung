@@ -17,33 +17,53 @@ import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * The type Benutzer repository test.
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class BenutzerRepositoryTest {
     @Autowired
     private BenutzerRepository benutzerRepository;
 
+    /**
+     * Test finding single user.
+     */
     @Test
     public void testFindingSingleUser() {
         assertTrue(benutzerRepository.findById(20L).isPresent());
     }
 
+    /**
+     * Test finding all users.
+     */
     @Test
     public void testFindingAllUsers() {
         assertTrue(benutzerRepository.findAll() instanceof List);
     }
 
+    /**
+     * Test saving user.
+     */
     @Test
     public void testSavingUser() {
         assertEquals(benutzerRepository.findById(20L).get().getName(), "Tomas");
 
     }
+
+    /**
+     * Test delete user.
+     */
     @Test
     public void testDeleteUser() {
         benutzerRepository.deleteById(20L);
         Assert.assertEquals(benutzerRepository.findById(20L), Optional.empty());
 
     }
+
+    /**
+     * Sets .
+     */
     @Before
     public void setup() {
         benutzerRepository.save(new Benutzer("Tomas",

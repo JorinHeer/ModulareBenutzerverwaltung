@@ -13,12 +13,24 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ * The type Benutzer controller.
+ */
 @Controller
 public class BenutzerController {
     private static final Logger logger = LoggerFactory.getLogger(BenutzerController.class);
+    /**
+     * The Benutzer service.
+     */
     @Autowired
     BenutzerService benutzerService;
 
+    /**
+     * Gets request users.
+     *
+     * @param model the model
+     * @return the request users
+     */
     @GetMapping("/get-users")
     public String getRequestUsers(Model model) {
         logger.info(getCurrentUser()+": getRequestUsers");
@@ -26,12 +38,27 @@ public class BenutzerController {
         return "users";
     }
 
+    /**
+     * Delete user string.
+     *
+     * @param id    the id
+     * @param model the model
+     * @return the string
+     */
     @GetMapping("/delete-user")
     public String deleteUser(@RequestParam(name = "id", required = true) long id, Model model) {
         logger.info(getCurrentUser()+": deleteUser: " + id);
         benutzerService.deleteById(id);
         return "redirect:/get-users";
     }
+
+    /**
+     * Block user string.
+     *
+     * @param id    the id
+     * @param model the model
+     * @return the string
+     */
     @GetMapping("/block-user")
     public String blockUser(@RequestParam(name = "id", required = true) long id, Model model) {
         logger.info(getCurrentUser()+": deleteUser: " + id);
@@ -39,6 +66,12 @@ public class BenutzerController {
         benutzer.toggleEnabled();
         return "redirect:/get-users";
     }
+
+    /**
+     * Get current user string.
+     *
+     * @return the string
+     */
     public String getCurrentUser(){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return user.getUsername().toLowerCase().trim();

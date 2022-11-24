@@ -6,12 +6,27 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
+/**
+ * The type Request wrapper.
+ */
 public class RequestWrapper  extends HttpServletRequestWrapper {
     private static final Logger logger = LoggerFactory.getLogger(RequestWrapper.class);
+
+    /**
+     * Instantiates a new Request wrapper.
+     *
+     * @param servletRequest the servlet request
+     */
     public RequestWrapper(HttpServletRequest servletRequest) {
         super(servletRequest);
     }
 
+    /**
+     * Get parameter values string [ ].
+     *
+     * @param parameter the parameter
+     * @return the string [ ]
+     */
     public String[] getParameterValues(String parameter) {
         logger.info("In getParameterValues .. parameter .......");
         String[] values = super.getParameterValues(parameter);
@@ -26,6 +41,12 @@ public class RequestWrapper  extends HttpServletRequestWrapper {
         return encodedValues;
     }
 
+    /**
+     * Gets parameter.
+     *
+     * @param parameter the parameter
+     * @return the parameter
+     */
     public String getParameter(String parameter) {
         logger.info("In getParameter .. parameter .......");
         String value = super.getParameter(parameter);
@@ -36,6 +57,12 @@ public class RequestWrapper  extends HttpServletRequestWrapper {
         return cleanXSS(value);
     }
 
+    /**
+     * Gets header.
+     *
+     * @param name the name
+     * @return the header
+     */
     public String getHeader(String name) {
         logger.info("In getHeader .. parameter .......");
         String value = super.getHeader(name);

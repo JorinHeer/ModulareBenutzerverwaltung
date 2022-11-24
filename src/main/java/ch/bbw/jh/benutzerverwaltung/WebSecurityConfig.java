@@ -10,15 +10,32 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+/**
+ * The type Web security config.
+ */
 @Configuration
 public class WebSecurityConfig {
+    /**
+     * The Benutzer service.
+     */
     @Autowired
     BenutzerService benutzerService;
 
+    /**
+     * Password encoder password encoder.
+     *
+     * @return the password encoder
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new SCryptPasswordEncoder();
     }
+
+    /**
+     * Dao authentication provider dao authentication provider.
+     *
+     * @return the dao authentication provider
+     */
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider provider =
@@ -29,6 +46,13 @@ public class WebSecurityConfig {
     }
 
 
+    /**
+     * Filter chain security filter chain.
+     *
+     * @param http the http
+     * @return the security filter chain
+     * @throws Exception the exception
+     */
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authenticationProvider(daoAuthenticationProvider());

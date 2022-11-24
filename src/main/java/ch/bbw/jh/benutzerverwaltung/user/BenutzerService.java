@@ -12,6 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * The type Benutzer service.
+ */
 @Service
 @Transactional
 public class BenutzerService implements UserDetailsService {
@@ -23,24 +26,51 @@ public class BenutzerService implements UserDetailsService {
     @Autowired
     private HttpServletRequest request;
 
+    /**
+     * Get all iterable.
+     *
+     * @return the iterable
+     */
     public Iterable<Benutzer> getAll(){
 
         return repository.findAll();
     }
 
+    /**
+     * Add.
+     *
+     * @param benutzer the benutzer
+     */
     public void add(Benutzer benutzer) {
         repository.save(benutzer);
     }
 
+    /**
+     * Update.
+     *
+     * @param id       the id
+     * @param benutzer the benutzer
+     */
     public void update(Long id, Benutzer benutzer) {
         //save geht auch für update.
         repository.save(benutzer);
     }
 
+    /**
+     * Delete by id.
+     *
+     * @param id the id
+     */
     public void deleteById(Long id) {
         repository.deleteById(id);
     }
 
+    /**
+     * Gets by id.
+     *
+     * @param id the id
+     * @return the by id
+     */
     public Benutzer getById(Long id) {
         Iterable<Benutzer> useritr = repository.findAll();
 
@@ -53,6 +83,12 @@ public class BenutzerService implements UserDetailsService {
         return null;
     }
 
+    /**
+     * Gets by user name.
+     *
+     * @param username the username
+     * @return the by user name
+     */
     public Benutzer getByUserName(String username) {
         Iterable<Benutzer> useritr = repository.findAll();
 
@@ -63,6 +99,14 @@ public class BenutzerService implements UserDetailsService {
         }
         return null;
     }
+
+    /**
+     * Load user by username user details.
+     *
+     * @param s the s
+     * @return the user details
+     * @throws UsernameNotFoundException the username not found exception
+     */
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         Benutzer benutzer = getByUserName(s);
         String ip = getClientIP();

@@ -19,11 +19,24 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.Set;
 
+/**
+ * The type Profile form controller.
+ */
 @Controller
 public class ProfileFormController {
     private static final Logger logger = LoggerFactory.getLogger(BenutzerController.class);
+    /**
+     * The Benutzer service.
+     */
     @Autowired
     BenutzerService benutzerService;
+
+    /**
+     * Edit profile string.
+     *
+     * @param model the model
+     * @return the string
+     */
     @GetMapping("/edit-profile")
     public String editProfile(Model model) {
         logger.info(getCurrentUser()+": call edit profile");
@@ -33,6 +46,13 @@ public class ProfileFormController {
         model.addAttribute("editProfile", editProfile);
         return "edit";
     }
+
+    /**
+     * Post request edit users string.
+     *
+     * @param editProfile the edit profile
+     * @return the string
+     */
     @PostMapping("/edit-profile")
     public String postRequestEditUsers(EditProfile editProfile) {
         logger.info(getCurrentUser()+": Post edit profile");
@@ -82,6 +102,12 @@ public class ProfileFormController {
             return "redirect:/"+redirect;
 
     }
+
+    /**
+     * Get current user string.
+     *
+     * @return the string
+     */
     public String getCurrentUser(){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return user.getUsername().toLowerCase().trim();

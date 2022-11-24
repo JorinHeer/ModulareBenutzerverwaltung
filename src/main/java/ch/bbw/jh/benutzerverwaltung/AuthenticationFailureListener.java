@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * The type Authentication failure listener.
+ */
 @Component
 public class AuthenticationFailureListener implements
         ApplicationListener<AuthenticationFailureBadCredentialsEvent> {
@@ -19,6 +22,11 @@ public class AuthenticationFailureListener implements
     @Autowired
     private LoginAttemptService loginAttemptService;
 
+    /**
+     * On application event.
+     *
+     * @param e the e
+     */
     @Override
     public void onApplicationEvent(AuthenticationFailureBadCredentialsEvent e) {
         final String xfHeader = request.getHeader("X-Forwarded-For");

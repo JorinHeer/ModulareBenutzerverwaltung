@@ -8,6 +8,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+/**
+ * The type Register user.
+ */
 public class RegisterUser {
 
     @NotEmpty(message = "name may not be empty" )
@@ -37,55 +40,137 @@ public class RegisterUser {
     @Pattern(regexp = "^^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$", message = "gib eine gülige Telefonnummer an")
     private String phone;
 
+    /**
+     * Gets email.
+     *
+     * @return the email
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Sets email.
+     *
+     * @param email the email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * Gets phone.
+     *
+     * @return the phone
+     */
     public String getPhone() {
         return phone;
     }
 
+    /**
+     * Sets phone.
+     *
+     * @param phone the phone
+     */
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
     public String getName() {
         return name;
     }
+
+    /**
+     * Sets name.
+     *
+     * @param name the name
+     */
     public void setName(String name) {
         this.name = name;
     }
+
+    /**
+     * Gets lastname.
+     *
+     * @return the lastname
+     */
     public String getLastname() {
         return lastname;
     }
+
+    /**
+     * Sets lastname.
+     *
+     * @param lastname the lastname
+     */
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
+
+    /**
+     * Gets password.
+     *
+     * @return the password
+     */
     public String getPassword() {
         return password;
     }
+
+    /**
+     * Sets password.
+     *
+     * @param password the password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
+
+    /**
+     * Gets confirmation.
+     *
+     * @return the confirmation
+     */
     public String getConfirmation() {
         return confirmation;
     }
+
+    /**
+     * Sets confirmation.
+     *
+     * @param confirmation the confirmation
+     */
     public void setConfirmation(String confirmation) {
         this.confirmation = confirmation;
     }
 
+    /**
+     * Gets message.
+     *
+     * @return the message
+     */
     public String getMessage() {
         return message;
     }
 
+    /**
+     * Sets message.
+     *
+     * @param message the message
+     */
     public void setMessage(String message) {
         this.message = message+"\n";
     }
 
+    /**
+     * To user benutzer.
+     *
+     * @return the benutzer
+     */
     public Benutzer toUser() {
         Benutzer benutzer = new Benutzer();
         benutzer.setName(name);
@@ -98,6 +183,13 @@ public class RegisterUser {
 
         return benutzer;
     }
+
+    /**
+     * Encode string.
+     *
+     * @param passw the passw
+     * @return the string
+     */
     public String encode(String passw){
         int strenght = 10;
         SCryptPasswordEncoder sCryptPasswordEncoder = new SCryptPasswordEncoder();
@@ -105,6 +197,11 @@ public class RegisterUser {
         return encodedPassw;
     }
 
+    /**
+     * To string string.
+     *
+     * @return the string
+     */
     @Override
     public String toString() {
         return "RegisterUser [prename=" + name + ", lastname=" + lastname + ", password=" + password

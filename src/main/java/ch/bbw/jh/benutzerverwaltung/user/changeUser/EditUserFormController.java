@@ -20,12 +20,25 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.Set;
 
+/**
+ * The type Edit user form controller.
+ */
 @Controller
 public class EditUserFormController {
     private static final Logger logger = LoggerFactory.getLogger(BenutzerController.class);
+    /**
+     * The Benutzer service.
+     */
     @Autowired
     BenutzerService benutzerService;
 
+    /**
+     * Edit user string.
+     *
+     * @param id    the id
+     * @param model the model
+     * @return the string
+     */
     @GetMapping("/edit-user")
     public String editUser(@RequestParam(name = "id", required = true) long id, Model model) {
         Benutzer user = benutzerService.getById(id);
@@ -35,6 +48,14 @@ public class EditUserFormController {
         model.addAttribute("editUser", editUser);
         return "edituser";
     }
+
+    /**
+     * Post request edit users string.
+     *
+     * @param editUser the edit user
+     * @param model    the model
+     * @return the string
+     */
     @PostMapping("/edit-user")
     public String postRequestEditUsers(EditUser editUser, Model model) {
         logger.info(getCurrentUser()+": Post edit user");
@@ -82,6 +103,12 @@ public class EditUserFormController {
             return "redirect:/index";
         }
     }
+
+    /**
+     * Get current user string.
+     *
+     * @return the string
+     */
     public String getCurrentUser(){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return user.getUsername().toLowerCase().trim();

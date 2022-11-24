@@ -19,13 +19,25 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.Set;
 
+/**
+ * The type Register form controller.
+ */
 @Controller
 @Validated
 public class RegisterFormController {
     private static final Logger logger = LoggerFactory.getLogger(BenutzerController.class);
+    /**
+     * The Benutzer service.
+     */
     @Autowired
     BenutzerService benutzerService;
 
+    /**
+     * Gets request regist users.
+     *
+     * @param model the model
+     * @return the request regist users
+     */
     @GetMapping("/get-register")
     public String getRequestRegistUsers(Model model) {
         logger.info(getCurrentUser()+": registerUser");
@@ -33,6 +45,13 @@ public class RegisterFormController {
         return "register";
     }
 
+    /**
+     * Post request regist users string.
+     *
+     * @param registerUser the register user
+     * @param model        the model
+     * @return the string
+     */
     @PostMapping("/get-register")
     public String postRequestRegistUsers(RegisterUser registerUser, Model model) {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
@@ -64,6 +83,12 @@ public class RegisterFormController {
             return "registerconfirmed";
         }
     }
+
+    /**
+     * Get current user string.
+     *
+     * @return the string
+     */
     public String getCurrentUser(){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return user.getUsername().toLowerCase().trim();

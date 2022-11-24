@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * The type Authentication success event listener.
+ */
 @Component
 public class AuthenticationSuccessEventListener implements
         ApplicationListener<AuthenticationSuccessEvent> {
@@ -19,6 +22,11 @@ public class AuthenticationSuccessEventListener implements
     @Autowired
     private LoginAttemptService loginAttemptService;
 
+    /**
+     * On application event.
+     *
+     * @param e the e
+     */
     @Override
     public void onApplicationEvent(final AuthenticationSuccessEvent e) {
         final String xfHeader = request.getHeader("X-Forwarded-For");
